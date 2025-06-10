@@ -1,0 +1,39 @@
+.card9 {
+    width: 220px;
+    border: 2px solid #9b5de5;
+    border-radius: 12px;
+    padding: 10px;
+    background-color: #f3e5f5;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    text-align: center;
+}
+
+.card9-image {
+    width: 100%;
+    border: 3px solid #9b5de5;
+    border-radius: 4px;
+}
+
+.card9-title {
+    font-size: 1.2rem;
+    color: #6a0dad;
+    margin: 6px 0 4px;
+}
+
+.card9-desc {
+    font-size: 0.9rem;
+    color: #4a148c;
+    margin-bottom: 6px;
+}
+
+.card9-rating {
+    font-size: 0.9rem;
+    color: #6a0dad;
+    margin-bottom: 6px;
+}
+
+.card9-price {
+    font-size: 1rem;
+    color: #6a0dad;
+    font-weight: bold;
+}
