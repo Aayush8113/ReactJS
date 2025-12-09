@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===============================
+   CRYSTAL UI V16 THEME VARIABLES
+   =============================== */
+
+:root {
+  --bg: #f5f7ff;
+  --nav: rgba(255, 255, 255, 0.65);
+  --card: rgba(255, 255, 255, 0.75);
+  --border: rgba(129, 140, 248, 0.25);
+  --text: #0f1123;
+  --textLite: #4b4f68;
+  --shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  --shadowLite: 0 0 12px rgba(0, 0, 0, 0.12);
+  --hover: rgba(129, 140, 248, 0.12);
+  --accent: #6366f1;
+}
+
+.dark {
+  --bg: #0b0d13;
+  --nav: rgba(15, 17, 27, 0.75);
+  --card: rgba(18, 20, 29, 0.8);
+  --border: rgba(99, 102, 241, 0.25);
+  --text: #ffffff;
+  --textLite: #d1d5db;
+  --shadow: 0 0 24px rgba(0, 0, 0, 0.4);
+  --shadowLite: 0 0 8px rgba(255, 255, 255, 0.05);
+  --hover: rgba(99, 102, 241, 0.15);
+  --accent: #818cf8;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+* {
+  transition: color 0.2s ease, background 0.2s ease, border 0.2s ease;
+}
