@@ -2,29 +2,30 @@
 
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-// Import Icons for a clean look
 import { FiUser, FiHome, FiSettings } from 'react-icons/fi';
-import Logo from "./Logo.jsx";
-import SmartSearch from "./SmartSearch.jsx"; // Assuming it can be placed here
-import MiniCart from "./MiniCart.jsx"; // Import the component
+import Logo from "./Logo.jsx"; // Assuming Logo component exists
+import SmartSearch from "./SmartSearch.jsx"; // Assuming SmartSearch component exists
+import MiniCart from "./MiniCart.jsx"; // Assuming MiniCart component exists
 import "../style/Header.css";
 
 export default function Header() {
   const location = useLocation();
-  // ⭐ Local state for the global search input in the header
+  // State for the global search input
   const [headerSearch, setHeaderSearch] = useState('');
 
   // Helper function to determine if a link is currently active
   const getLinkClass = (path) => {
-    return location.pathname === path ? "active" : "";
+    // Uses startsWith for admin to handle sub-routes, but exact match for root/profile
+    if (path === "/") return location.pathname === "/" ? "active" : "";
+    return location.pathname.startsWith(path) ? "active" : "";
   };
 
-  // Determine if we should show the full header content (hide on Admin/Auth pages)
+  // Determine if we should render the full application header
   const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
   const isAdminPage = location.pathname.startsWith('/admin');
 
   if (isAuthPage || isAdminPage) {
-    // Render a minimalist header or nothing if required by the design
+    // Render a minimal header on auth or admin pages
     return (
       <header className="header header-minimal">
         <Logo />
@@ -52,11 +53,10 @@ export default function Header() {
       </div>
 
       <div className="header-right">
-        {/* 1. Search Bar - SmartSearch is safe here as data is global */}
+        {/* 1. Search Bar */}
         <SmartSearch
           search={headerSearch}
           setSearch={setHeaderSearch}
-          // allData prop is OMITTED!
         />
 
         {/* 2. Login/Profile Button */}
@@ -64,7 +64,7 @@ export default function Header() {
           Sign In
         </Link>
 
-        {/* 3. MiniCart Component (Now handles its own icon and state) */}
+        {/* 3. MiniCart Component */}
         <MiniCart />
       </div>
     </header>

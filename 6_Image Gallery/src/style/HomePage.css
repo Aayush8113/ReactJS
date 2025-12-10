@@ -1,37 +1,57 @@
 /* src/style/HomePage.css - REFINED LAYOUT AND CONTROL FLOW */
 
-/* --- Custom Properties --- */
+/* --- Custom Properties (Ensure these match your global variables) --- */
 :root {
-    --sidebar-width: 240px;
+    --header-height: 60px;
     --content-max-width: 1400px;
-    --sidebar-width-mobile: 80px; /* Assuming collapsed state on tablet */
+    /* Use the dynamically set variable for margin/width calculation */
+    --sidebar-current-width: 240px; 
 }
 
 /* 1. Base Homepage Layout (Desktop/Sidebar Ready) */
 .homepage {
-    /* Use padding to account for the fixed Sidebar and Header */
-    padding: 30px 40px 60px; /* Top/Bottom padding, horizontal padding */
-    /* Account for fixed sidebar width on desktop */
-    padding-left: calc(var(--sidebar-width) + 40px); 
+    /* ⭐ CRITICAL FIX: Offset for the fixed/sticky Header and Sidebar ⭐ */
+    /* This ensures the content starts below the header and beside the sidebar. */
+    padding-top: calc(var(--header-height) + 30px); /* Space below the header */
+    padding-bottom: 60px; /* Generous bottom padding */
+    
+    /* Center the content area */
     max-width: var(--content-max-width);
-    margin: 0 auto;
+    /* margin-left MUST be auto to center the content within the available space */
+    margin: 0 auto; 
+    
+    /* ⭐ Position the main content area *outside* the fixed layout elements ⭐ */
+    margin-left: var(--sidebar-current-width); 
+    width: calc(100% - var(--sidebar-current-width));
+    
     min-height: 100vh;
+    box-sizing: border-box; /* Include padding in width/height calculations */
+    
+    /* Animation for smooth movement when sidebar collapses */
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 2. Floating Theme Toggle (Utility button, styling simplified) */
+/* Reset margin for center alignment within the limited width */
+.homepage > * {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 100%; /* Ensure children respect the parent's width */
+}
+
+/* 2. Floating Theme Toggle (Utility button) */
 .theme-toggle {
-    /* Positioning is correct */
     position: fixed;
     bottom: 24px;
     right: 24px;
     z-index: 2000;
     
-    /* Appearance */
     background: var(--card);
     border: 1px solid var(--border);
     padding: 10px 18px;
     border-radius: 50px; 
-    color: var(--text-primary); /* Use primary text color */
+    color: var(--text-primary);
     font-weight: 500;
     cursor: pointer;
     box-shadow: 0 4px 12px var(--shadow-md);
@@ -45,40 +65,48 @@
 }
 
 /* 3. Product Catalog Controls (Search, Tabs, Sort) */
-/* Use flex-wrap to ensure controls stay visually appealing if the SmartSearch is wide */
+/* Override the centering applied above for this control strip */
 .product-catalog-controls {
     display: flex;
-    flex-wrap: wrap; /* Allows controls to wrap neatly on smaller screens */
+    flex-wrap: wrap; 
     align-items: center;
     gap: 20px;
     margin-bottom: 30px;
+    
+    /* Overrides parent alignment to use full available content width */
+    padding-left: 0;
+    padding-right: 0; 
 }
 
-/* Ensure controls stack properly within the flow on mobile */
 .product-catalog-controls > * {
-    /* Allows SmartSearch to expand fully, while other components may take less space */
     flex-grow: 1; 
     min-width: 150px; 
 }
 
 
 /* 4. Masonry Grid */
+.product-grid-section {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .masonry-grid {
     display: flex;
-    /* Negative margin to counteract the gutter/gap provided by the Masonry library */
     margin-left: -20px; 
     width: auto;
 }
 
 .masonry-grid_column {
-    padding-left: 20px; /* Gutter width */
+    padding-left: 20px; 
     background-clip: padding-box;
 }
 
-/* 5. Load More Indicator (New professional styling) */
+/* 5. Load More Indicator */
 .load-more-indicator {
     text-align: center;
     padding: 40px 0 60px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .loading-message, .end-of-results {
@@ -100,7 +128,6 @@
     100% { transform: rotate(360deg); }
 }
 
-/* No results message */
 .no-results-message {
     text-align: center;
     color: var(--text-secondary);
@@ -108,37 +135,34 @@
     padding: 60px 0;
     border: 1px dashed var(--border);
     border-radius: 12px;
-    width: 100%; /* Ensure it spans full width of the container */
+    width: 100%; 
 }
 
 
 /* 6. Mobile Responsiveness */
-@media (max-width: 1024px) {
-    /* Tablet: Reduce sidebar allowance */
-    .homepage {
-        /* Adjusted padding for smaller screens where sidebar might be collapsed */
-        padding-left: calc(var(--sidebar-width-mobile, 80px) + 20px); 
-        padding-right: 20px;
-    }
-    /* Controls should still flow neatly */
-    .product-catalog-controls {
-        flex-wrap: wrap; 
-        gap: 15px;
-    }
-}
-
 @media (max-width: 768px) {
-    /* Phone: Full width, no permanent sidebar gap */
+    /* Phone: Full width, no fixed sidebar offset */
     .homepage {
-        padding: 20px;
-        padding-left: 20px; 
+        /* Reset offset for mobile */
+        margin-left: 0;
+        width: 100%;
+        padding-top: calc(var(--header-height) + 20px); 
+        padding-left: 0; /* Handled by child padding */
+        padding-right: 0; /* Handled by child padding */
     }
     
+    /* Apply standard padding to children elements for screen edges */
+    .homepage > * {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    /* Stack controls vertically */
     .product-catalog-controls {
-        flex-direction: column; /* Stack controls vertically */
+        flex-direction: column; 
         gap: 15px;
     }
-    /* Ensure controls take full width when stacked */
+    
     .product-catalog-controls > * {
         width: 100%;
         min-width: unset;

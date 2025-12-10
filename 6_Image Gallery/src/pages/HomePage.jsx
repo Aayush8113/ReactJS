@@ -22,7 +22,6 @@ import "../style/HomePage.css";
 
 /**
  * Professional Home Page with filtering, sorting, infinite scroll, and theme logic.
- * The component now consumes the global CartContext and ProductDataContext.
  */
 export default function HomePage() {
   // 1. Use Context
@@ -90,10 +89,10 @@ export default function HomePage() {
   // 5. Infinite Scroll (Passive Loading)
   useEffect(() => {
     const handleScroll = () => {
-      // Check if scroll is near the bottom
+      // Check if scroll is near the bottom (300px buffer)
       if (
         window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 300 // Use scrollHeight for robust check
+        document.documentElement.scrollHeight - 300
       ) {
         // Only load more if there are more items to show
         if (itemsToShow < filteredData.length) {
@@ -112,7 +111,7 @@ export default function HomePage() {
     setWishlist((prev) =>
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
     );
-    notify("info", prev => prev.includes(id) ? "Removed from Wishlist" : "Added to Wishlist");
+    notify("info", wishlist.includes(id) ? "Removed from Wishlist" : "Added to Wishlist");
   };
 
   // ADD TO CART (Now using utility that updates the context state)
@@ -135,9 +134,10 @@ export default function HomePage() {
   const hasMore = itemsToShow < filteredData.length;
 
   return (
-    <div className="homepage">
+    // ⭐ APPLY main-content class for layout offset ⭐
+    <div className="homepage main-content">
 
-      {/* THEME TOGGLE (Moved outside main content for utility feel) */}
+      {/* THEME TOGGLE (Fixed utility button) */}
       <button className="theme-toggle" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}>
         {theme === "dark" ? "🌞 Light Mode" : "🌙 Dark Mode"}
       </button>
@@ -165,7 +165,7 @@ export default function HomePage() {
           {displayedItems.map((item, index) => (
             <Card
               key={item.id}
-              item={item} // Pass the whole item as a single prop for cleaner Card component
+              item={item} 
               index={index}
               isWishlisted={wishlist.includes(item.id)}
               toggleWishlist={() => toggleWishlist(item.id)}

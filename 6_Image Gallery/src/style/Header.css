@@ -1,32 +1,36 @@
-/* src/style/Header.css - PROFESSIONAL GRID LAYOUT UPGRADE */
+/* src/style/Header.css - FINAL SYNCHRONIZED VERSION */
 
 /* --- Custom Properties/Variables for Header --- */
 :root {
     --header-height: 60px;
-    --header-padding-x: 20px; /* Using fixed pixel for consistency */
-    --header-box-shadow: 0 2px 8px var(--shadow-sm); 
+    --header-padding-x: 20px; 
+    /* Heavy shadow provides good depth over scrolling content */
+    --header-box-shadow: 0 4px 10px var(--shadow-md); 
+    --sidebar-current-width: 240px; 
 }
 
 /* 1. Base Header Style (Desktop Grid) */
 .header {
-    /* Layout: Use Grid to define three distinct columns */
+    /* DYNAMIC LAYOUT: Follows the sidebar's width */
+    width: calc(100% - var(--sidebar-current-width));
+    margin-left: var(--sidebar-current-width);
+
     display: grid;
-    /* Columns: Logo/Nav (Auto) | Search Bar (Expands) | Actions (Auto) */
     grid-template-columns: auto 1fr auto; 
     grid-template-areas: "left center right"; 
 
-    /* Spacing & Position */
     height: var(--header-height);
     padding: 0 var(--header-padding-x);
     position: sticky; 
     top: 0;
-    z-index: 1000; 
+    z-index: 1050; 
 
-    /* Appearance */
+    /* ⭐ SYNC IMPROVEMENT: Use the Card background and remove bottom border ⭐ */
     background: var(--card); 
-    border-bottom: 1px solid var(--border-light); 
+    border-bottom: none; 
     box-shadow: var(--header-box-shadow);
-    transition: background 0.3s ease, box-shadow 0.3s ease; 
+    
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
 }
 
 /* 2. Left Section (Logo & Navigation) */
@@ -34,12 +38,12 @@
     grid-area: left;
     display: flex;
     align-items: center;
-    gap: 30px; /* Increased gap for desktop view */
+    gap: 30px; 
 }
 
-/* 3. Navigation Links (Desktop Only - hidden on mobile) */
+/* 3. Navigation Links (Desktop Only) */
 .nav-links {
-    display: flex; /* Always show on desktop grid */
+    display: flex; 
     align-items: center;
     gap: 24px;
 }
@@ -51,6 +55,9 @@
     padding: 8px 0;
     position: relative;
     transition: color 0.2s ease;
+    display: flex; 
+    align-items: center;
+    gap: 6px; 
 }
 
 .nav-links a:hover {
@@ -61,7 +68,7 @@
 .nav-links a::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -2px; 
     left: 0;
     width: 0;
     height: 2px;
@@ -74,21 +81,19 @@
     width: 100%;
 }
 
-/* ⭐ 4. Center Section (Search Bar Integration) ⭐ */
-/* This section spans the middle of the grid and pushes the right content away */
+/* 4. Center Section (Search Bar Integration) */
 .header-center {
     grid-area: center;
     display: flex;
-    justify-content: center; /* Center the search bar within the wide column */
+    justify-content: center; 
     align-items: center;
-    padding: 0 40px; /* Give space around the search input */
+    padding: 0 40px; 
 }
 
-/* Assuming SmartSearch is placed here (and styled separately) */
 .smart-search-container {
-    max-width: 500px; /* Constrain the search bar width */
+    max-width: 500px; 
     width: 100%;
-    margin: 0; /* Override any external margin */
+    margin: 0; 
 }
 
 /* 5. Right Section (Icons/Buttons) */
@@ -99,24 +104,17 @@
     align-items: center;
 }
 
-/* General button/icon styling for consistency */
-.header-right > * {
-    transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-/* Login/Action Button */
 .login-btn {
     cursor: pointer;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     padding: 8px 16px;
     border-radius: 8px;
     border: 1px solid var(--primary);
     background: var(--primary);
-    color: white; /* Changed from var(--button-text) assuming white text */
+    color: white; 
     font-weight: 600;
     transition: background 0.3s, border-color 0.3s, transform 0.1s;
 }
@@ -127,67 +125,30 @@
     transform: translateY(-1px);
 }
 
-/* Icon Styles (e.g., MiniCart, Search) */
-.icon-btn {
-    /* Style from the previous version, kept for consistency */
-    cursor: pointer;
-    font-size: 1.5rem; 
-    color: var(--text);
-    padding: 4px;
-    border-radius: 50%;
-    background: transparent;
-    border: none;
-}
-
-.icon-btn:hover {
-    color: var(--primary);
-    background-color: var(--hover-bg);
-}
-
-
 /* 6. Mobile Responsiveness */
 @media (max-width: 1024px) {
-    /* Hide the text navigation links to make space for the search bar */
     .nav-links {
         display: none;
     }
-    
     .header {
-        /* On medium screens, the navigation is gone, give the search bar more space */
         grid-template-columns: auto 1fr auto; 
     }
 }
 
 @media (max-width: 768px) {
-    /* Full Mobile Layout (Stacking search under logo and actions) */
+    /* Mobile Layout: Header takes full width, margin removed (sidebar is hidden) */
     .header {
-        /* Change grid to two rows: Top row (Logo/Actions) | Second row (Search) */
+        width: 100%;
+        margin-left: 0;
         grid-template-columns: 1fr auto; 
         grid-template-rows: var(--header-height) auto;
         grid-template-areas: 
             "left right"
             "center center";
         padding: 0 var(--header-padding-x);
+        box-shadow: 0 2px 8px var(--shadow-sm); 
     }
-
-    /* Expand search bar fully in the center row */
     .header-center {
         padding: 10px var(--header-padding-x);
-        justify-content: flex-start;
-        width: 100%;
-        /* Ensure search input uses full width */
-    }
-    .smart-search-container {
-        max-width: 100%;
-    }
-
-    .header-left {
-        gap: 15px;
-    }
-    
-    /* Ensure the mobile header has enough height when expanded */
-    .header-left, .header-right {
-        height: var(--header-height);
-        align-items: center;
     }
 }

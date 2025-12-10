@@ -4,6 +4,7 @@ import "../style/SortMenu.css";
 export default function SortMenu({ sortType, setSortType }) {
   return (
     <select
+      // ⭐ ENSURE class name matches CSS below ⭐
       className="sort-menu"
       value={sortType}
       onChange={(e) => setSortType(e.target.value)}
