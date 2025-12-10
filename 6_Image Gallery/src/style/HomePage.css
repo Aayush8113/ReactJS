@@ -1,0 +1,146 @@
+/* src/style/HomePage.css - REFINED LAYOUT AND CONTROL FLOW */
+
+/* --- Custom Properties --- */
+:root {
+    --sidebar-width: 240px;
+    --content-max-width: 1400px;
+    --sidebar-width-mobile: 80px; /* Assuming collapsed state on tablet */
+}
+
+/* 1. Base Homepage Layout (Desktop/Sidebar Ready) */
+.homepage {
+    /* Use padding to account for the fixed Sidebar and Header */
+    padding: 30px 40px 60px; /* Top/Bottom padding, horizontal padding */
+    /* Account for fixed sidebar width on desktop */
+    padding-left: calc(var(--sidebar-width) + 40px); 
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+/* 2. Floating Theme Toggle (Utility button, styling simplified) */
+.theme-toggle {
+    /* Positioning is correct */
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 2000;
+    
+    /* Appearance */
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    border-radius: 50px; 
+    color: var(--text-primary); /* Use primary text color */
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow-md);
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.theme-toggle:hover {
+    background: var(--hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow);
+}
+
+/* 3. Product Catalog Controls (Search, Tabs, Sort) */
+/* Use flex-wrap to ensure controls stay visually appealing if the SmartSearch is wide */
+.product-catalog-controls {
+    display: flex;
+    flex-wrap: wrap; /* Allows controls to wrap neatly on smaller screens */
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Ensure controls stack properly within the flow on mobile */
+.product-catalog-controls > * {
+    /* Allows SmartSearch to expand fully, while other components may take less space */
+    flex-grow: 1; 
+    min-width: 150px; 
+}
+
+
+/* 4. Masonry Grid */
+.masonry-grid {
+    display: flex;
+    /* Negative margin to counteract the gutter/gap provided by the Masonry library */
+    margin-left: -20px; 
+    width: auto;
+}
+
+.masonry-grid_column {
+    padding-left: 20px; /* Gutter width */
+    background-clip: padding-box;
+}
+
+/* 5. Load More Indicator (New professional styling) */
+.load-more-indicator {
+    text-align: center;
+    padding: 40px 0 60px;
+}
+
+.loading-message, .end-of-results {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.loading-spinner {
+    animation: spin 1s linear infinite;
+    color: var(--primary);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* No results message */
+.no-results-message {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    padding: 60px 0;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    width: 100%; /* Ensure it spans full width of the container */
+}
+
+
+/* 6. Mobile Responsiveness */
+@media (max-width: 1024px) {
+    /* Tablet: Reduce sidebar allowance */
+    .homepage {
+        /* Adjusted padding for smaller screens where sidebar might be collapsed */
+        padding-left: calc(var(--sidebar-width-mobile, 80px) + 20px); 
+        padding-right: 20px;
+    }
+    /* Controls should still flow neatly */
+    .product-catalog-controls {
+        flex-wrap: wrap; 
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Phone: Full width, no permanent sidebar gap */
+    .homepage {
+        padding: 20px;
+        padding-left: 20px; 
+    }
+    
+    .product-catalog-controls {
+        flex-direction: column; /* Stack controls vertically */
+        gap: 15px;
+    }
+    /* Ensure controls take full width when stacked */
+    .product-catalog-controls > * {
+        width: 100%;
+        min-width: unset;
+    }
+}

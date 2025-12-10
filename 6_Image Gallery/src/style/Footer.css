@@ -1,0 +1,79 @@
+/* src/style/Footer.css */
+
+/* 1. Base Footer */
+.footer {
+    padding: 30px 40px; /* Generous padding */
+    border-top: 1px solid var(--border-light);
+    background: var(--card); /* Match header/sidebar background */
+    color: var(--subtext);
+    font-size: 0.9rem;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+
+.footer-copyright {
+    margin: 0;
+    font-weight: 500;
+}
+
+/* 2. Navigation */
+.footer-nav {
+    /* Layout for links */
+}
+
+.footer-links {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 20px;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/* 3. Bottom Information */
+.footer-bottom {
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-light);
+    margin-top: 15px;
+}
+
+.build-info {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .footer-nav {
+        order: -1; /* Move navigation to the top on mobile */
+    }
+    .footer-links {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

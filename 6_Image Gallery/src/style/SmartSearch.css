@@ -1,0 +1,155 @@
+/* src/style/SmartSearch.css */
+
+/* --- Custom Properties for Search --- */
+:root {
+    --search-height: 50px;
+}
+
+/* 1. Container & Layout */
+.smart-search-container {
+    margin-bottom: 24px;
+    position: relative; /* Crucial for positioning the dropdown */
+    width: 100%;
+}
+
+/* 2. Input Wrapper (Handles Input, Icon, and Clear Button layout) */
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    
+    /* Styling the container to look like the input */
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    height: var(--search-height);
+    padding: 0 16px;
+    transition: all 0.2s ease;
+}
+
+.smart-search-container.is-active .search-input-wrapper {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light); /* Soft focus ring */
+}
+
+/* Search Icon */
+.search-icon {
+    color: var(--text-secondary);
+    margin-right: 12px;
+    flex-shrink: 0; /* Prevents icon from shrinking */
+}
+
+/* The actual Input Field */
+.smart-input {
+    flex-grow: 1; /* Takes up all available space */
+    border: none;
+    background: transparent;
+    color: var(--text);
+    padding: 0; /* Padding is handled by the wrapper */
+    font-size: 1rem;
+    height: 100%;
+}
+
+.smart-input:focus {
+    outline: none;
+}
+
+/* Clear Button */
+.clear-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+}
+.clear-btn:hover {
+    color: var(--danger);
+}
+
+
+/* 3. Dropdown (Suggestions & Trending Tags) */
+.search-dropdown {
+    position: absolute;
+    top: calc(var(--search-height) + 8px); /* Position slightly below the input */
+    left: 0;
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px var(--shadow-md);
+    z-index: 100;
+    overflow: hidden;
+}
+
+/* Suggestion List */
+.smart-suggestions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.suggestion-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    color: var(--text);
+    font-size: 1rem;
+    transition: background 0.2s ease;
+}
+
+.suggestion-item:hover,
+.suggestion-item:focus {
+    background: var(--hover-bg);
+}
+
+.suggestion-item strong.highlight {
+    color: var(--primary);
+    font-weight: 700;
+    background: var(--primary-light); /* Subtle background for highlight */
+    padding: 2px 0;
+    border-radius: 2px;
+}
+
+/* 4. Trending Tags Section (When search is empty) */
+.smart-tags-section {
+    padding: 16px;
+}
+
+.tags-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.smart-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.smart-tag {
+    padding: 6px 14px;
+    background: var(--background);
+    border-radius: 50px; /* Pill shape */
+    border: 1px solid var(--border-light);
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+}
+
+.smart-tag:hover {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary-dark);
+    transform: translateY(-1px);
+    -webkit-transform: translateY(-1px);
+    -moz-transform: translateY(-1px);
+    -ms-transform: translateY(-1px);
+    -o-transform: translateY(-1px);
+}

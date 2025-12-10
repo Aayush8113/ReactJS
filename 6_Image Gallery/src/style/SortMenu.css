@@ -1,0 +1,86 @@
+/* src/style/SortMenu.css */
+
+/* 1. Select Element Styling (for a standard HTML select) */
+.sort-menu-select { /* Using a semantic class name */
+    /* Appearance */
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 16px; /* Increased padding */
+    border-radius: 8px; /* Modern radius */
+    
+    /* Layout */
+    display: inline-block;
+    max-width: 200px; /* Constrain width */
+    font-size: 1rem;
+    cursor: pointer;
+    
+    /* Remove default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    /* Custom Arrow (Optional: relies on a background image or icon in a wrapper) */
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M7%2010L12%2015L17%2010H7Z%22%20fill%3D%22%23707070%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 30px; /* Make space for the custom arrow */
+
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sort-menu-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+/* 2. Optional: Style for a Custom Dropdown (If SortMenu is a custom component) */
+.sort-menu-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.sort-menu-btn { /* The button that triggers the dropdown */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.sort-menu-btn:hover {
+    background: var(--hover-bg);
+}
+
+.sort-dropdown { /* The floating menu with options */
+    position: absolute;
+    top: 100%;
+    right: 0; /* Align to the right */
+    min-width: 180px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-md);
+    margin-top: 8px;
+    z-index: 50;
+    overflow: hidden;
+}
+
+.sort-option {
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.sort-option:hover,
+.sort-option.active {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}

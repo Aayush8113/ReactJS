@@ -1,0 +1,129 @@
+/* src/style/Auth.css */
+
+/* --- Custom Properties for Auth (Optional, if not defined in index.css) --- */
+:root {
+    --auth-max-width: 420px;
+    --auth-padding: 32px;
+}
+
+/* 1. Container/Page Layout */
+.auth-container { /* Renamed from .auth-page for clarity */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to the top of the container */
+    min-height: calc(100vh - var(--header-height, 60px) - var(--footer-height, 50px)); /* Ensure it fills the screen height */
+    padding: 60px 20px; /* Vertical padding */
+    background: var(--background-soft); /* Subtle background contrast */
+}
+
+/* 2. Auth Card (The Form Wrapper) */
+.auth-card {
+    width: 100%;
+    max-width: var(--auth-max-width);
+    padding: var(--auth-padding);
+    border-radius: 16px; /* Slightly softer border radius */
+    background: var(--card);
+    border: 1px solid var(--border-light);
+    box-shadow: 0 10px 30px var(--shadow-md); /* Deeper, softer shadow */
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Increased gap for better spacing */
+    transition: box-shadow 0.3s ease;
+}
+
+.auth-card:hover {
+    box-shadow: 0 12px 35px var(--shadow); /* Subtle hover effect */
+}
+
+.auth-title {
+    text-align: center;
+    margin-bottom: 8px; /* Reduced margin since gap handles spacing */
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+
+/* 3. Inputs */
+.auth-input-group {
+    /* Used for wrapping label/input if needed later, but helps spacing now */
+    margin-bottom: 4px; 
+}
+
+.auth-input { /* Renamed from .auth-card input for specificity */
+    width: 100%;
+    padding: 14px 16px; /* Increased padding for better touch target */
+    border-radius: 8px; /* Modern, smaller radius */
+    border: 1px solid var(--border);
+    background: var(--input-bg); /* Dedicated input background */
+    color: var(--text);
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.auth-input:focus {
+    outline: none;
+    border-color: var(--primary); /* Highlight on focus */
+    box-shadow: 0 0 0 3px var(--primary-light); /* Soft focus ring */
+    background: var(--background); /* Slightly brighter background on focus */
+}
+
+/* 4. Button */
+.auth-btn {
+    width: 100%;
+    padding: 14px; /* Increased padding */
+    border-radius: 8px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.auth-btn:hover:not(:disabled) {
+    background: var(--accent-dark);
+    transform: translateY(-1px);
+}
+
+.auth-btn:disabled {
+    background: var(--border);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* 5. Utility Links */
+.auth-link-small {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.auth-link-small:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+    .auth-container {
+        padding: 30px 15px;
+    }
+    .auth-card {
+        padding: 20px;
+    }
+}

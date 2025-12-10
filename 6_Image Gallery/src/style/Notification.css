@@ -1,0 +1,63 @@
+/* src/style/Notification.css - MODERN TOAST NOTIFICATIONS */
+
+/* 1. Wrapper (Fixed Position Container) */
+.notification-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 90%;
+    width: 350px; /* Slightly wider */
+}
+
+/* 2. Individual Notification Toast */
+.notification-toast { 
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 20px; /* Uniform padding */
+    
+    /* Appearance */
+    border-radius: 10px; 
+    font-size: 0.95rem;
+    color: white;
+    /* Use solid colors for better readability */
+    box-shadow: 0 6px 15px var(--shadow-md);
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    border: 1px solid transparent; /* Placeholder for status border */
+}
+
+.notification-icon {
+    flex-shrink: 0;
+}
+
+/* Status Colors (Using defined theme variables for success/danger) */
+.notification-toast.success { 
+    background: var(--success); 
+    border-color: var(--success-dark);
+}
+.notification-toast.error { 
+    background: var(--danger); 
+    border-color: var(--danger-dark);
+}
+.notification-toast.info { 
+    background: var(--info); 
+    border-color: #0b7dda; /* Darker blue */
+}
+.notification-toast.warning {
+    background: var(--warning); 
+    border-color: #e68900; /* Darker orange */
+}
+
+/* Responsive adjustment */
+@media (max-width: 500px) {
+    .notification-wrapper {
+        top: 10px;
+        right: 10px;
+        width: calc(100% - 20px);
+    }
+}

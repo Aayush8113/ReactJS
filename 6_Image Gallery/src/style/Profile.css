@@ -1,0 +1,60 @@
+/* src/style/Profile.css - CLEAN USER PROFILE CARD */
+
+.profile-card {
+    width: 100%;
+    max-width: 450px; /* Slightly wider max-width for modern cards */
+    margin: 30px auto; /* Centered margin */
+    padding: 30px;
+    border-radius: 12px;
+    background: var(--card);
+    border: 1px solid var(--border-light);
+    box-shadow: 0 6px 20px var(--shadow-sm); /* Soft shadow */
+    transition: box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+    box-shadow: 0 8px 30px var(--shadow-md);
+}
+
+.profile-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+/* User Info Layout (if present in JSX) */
+.profile-info p {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+}
+.profile-info strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.logout-btn {
+    margin-top: 25px;
+    padding: 12px 24px;
+    width: 100%;
+    background: var(--danger);
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.logout-btn:hover {
+    background: var(--danger-dark);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+    .profile-card {
+        margin: 20px auto;
+        padding: 20px;
+    }
+}

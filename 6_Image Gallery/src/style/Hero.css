@@ -1,0 +1,66 @@
+/* src/style/Hero.css - CLEANED AND RESPONSIVE HERO */
+
+/* 1. Hero Container */
+.hero {
+    padding: 70px 30px; 
+    margin-bottom: 40px; 
+    
+    border-radius: 16px;
+    /* Use primary colors for the gradient, ensuring theme compatibility */
+    background: linear-gradient(135deg, var(--primary) 10%, var(--primary-light) 100%);
+    text-align: center;
+    box-shadow: 0 10px 30px var(--primary-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 2. Typography */
+.hero-title {
+    font-size: clamp(1.8rem, 5vw, 3.2rem); /* Slightly larger for impact */
+    color: white; 
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    max-width: 90%;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 700px;
+    margin: 0 auto 30px;
+}
+
+/* 3. Hero Button */
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 30px; 
+    
+    /* Appearance */
+    background: var(--card); /* Contrast background */
+    color: var(--text-primary);
+    border: none;
+    border-radius: 50px; 
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px var(--shadow-md);
+    transition: all 0.2s ease;
+}
+
+.hero-btn:hover {
+    background: var(--hover-bg);
+    transform: translateY(-3px); /* Increased lift */
+    box-shadow: 0 10px 20px var(--shadow);
+    /* Removed unnecessary vendor prefixes */
+}
+
+@media (max-width: 600px) {
+    .hero {
+        padding: 40px 15px;
+    }
+}

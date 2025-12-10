@@ -1,0 +1,48 @@
+/*
+======================================
+src/App.css (General Layout Containers)
+======================================
+*/
+
+/* Main App Container for content centering */
+.app-container {
+    max-width: 1440px; /* Increased max width slightly */
+    margin: 0 auto;
+    /* padding-top and padding-bottom are often handled by Header/Footer/PageWrapper now */
+}
+
+/* Page Wrapper (Used by PageWrapper.jsx) */
+.page-wrapper {
+    /* Defines the area where page content sits, adjusted for header/sidebar */
+    min-height: calc(100vh - 120px); /* Subtract header and footer approximate height */
+}
+
+
+/* Theme Toggle (Style moved from global scope to a fixed utility button) */
+/* The final theme toggle is usually placed as a fixed utility button */
+.theme-toggle {
+    /* Styling is generally defined in HomePage.css or as a global utility component style */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    border-radius: 50px; 
+    color: var(--text-primary);
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow-md);
+    z-index: 2000;
+    transition: background 0.2s, color 0.2s;
+}
+.theme-toggle:hover {
+    background: var(--hover-bg);
+}
+
+
+/* Loading Indicator (Style moved to HomePage.css) */
+.load-more {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--text-secondary);
+}

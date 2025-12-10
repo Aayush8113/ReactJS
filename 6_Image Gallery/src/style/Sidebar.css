@@ -1,0 +1,183 @@
+/* src/style/Sidebar.css */
+
+/* --- Custom Properties --- */
+:root {
+    --sidebar-width-expanded: 240px;
+    --sidebar-width-collapsed: 80px;
+    --header-height: 60px;
+}
+
+/* 1. Base Sidebar Container (Expanded State) */
+.sidebar {
+    /* Positioning & Layout */
+    position: fixed;
+    top: 0; 
+    left: 0;
+    height: 100vh;
+    width: var(--sidebar-width-expanded);
+    padding-top: calc(var(--header-height) + 20px); /* Space below the fixed header */
+    padding-bottom: 20px;
+    
+    /* Appearance */
+    background: var(--card);
+    border-right: 1px solid var(--border-light);
+    box-shadow: 2px 0 10px var(--shadow-sm);
+    z-index: 1000; /* Must be below the Header (z-index: 1001) */
+
+    /* Transition for collapse animation */
+    transition: width 0.3s ease-in-out, padding 0.3s ease-in-out; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* 2. Collapsed State */
+.sidebar.collapsed {
+    width: var(--sidebar-width-collapsed);
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* 3. Collapse Toggle Button */
+.collapse-toggle {
+    position: absolute;
+    top: calc(var(--header-height) + 10px);
+    right: -18px; /* Positioned outside the main width for the expanded view */
+    background: var(--primary);
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px var(--shadow-md);
+    transition: transform 0.3s ease, background 0.2s ease, right 0.3s ease;
+    z-index: 1001; /* Ensure it stays above the sidebar itself */
+}
+
+.sidebar.collapsed .collapse-toggle {
+    right: -18px; /* Stays in the same position relative to the viewport edge */
+}
+
+.collapse-toggle:hover {
+    background: var(--primary-dark);
+}
+
+.collapse-toggle .rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* 4. Navigation Menu */
+.sidebar-nav {
+    flex-grow: 1;
+    overflow-y: auto; /* Allow scrolling for long menus */
+    padding: 0 16px;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+}
+
+.sidebar-nav h3 {
+    margin: 0 0 10px 0;
+    padding: 0 8px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Hiding headers when collapsed */
+.sidebar.collapsed h3 {
+    display: none;
+}
+
+.sidebar-nav li {
+    margin: 4px 0;
+}
+
+.sidebar-nav a, .sidebar-footer .auth-link {
+    /* Link appearance */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    text-decoration: none;
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.link-icon {
+    flex-shrink: 0;
+}
+
+.link-text {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+/* Link Hover and Active States */
+.sidebar-nav a:hover,
+.sidebar-footer .auth-link:hover {
+    background: var(--hover-bg);
+    color: var(--primary-dark);
+}
+
+.sidebar-nav li.active a {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 600;
+    /* Optional: Add a left border for emphasis */
+    border-left: 3px solid var(--primary); 
+    padding-left: 9px; 
+}
+
+
+/* 5. Collapsed Link State */
+.sidebar.collapsed .link-text,
+.sidebar.collapsed h3 {
+    opacity: 0;
+    width: 0;
+}
+
+.sidebar.collapsed a {
+    justify-content: center;
+    padding: 10px 0; /* Centered padding */
+}
+
+/* 6. Footer Auth Link */
+.sidebar-footer {
+    padding: 10px 16px 0;
+    border-top: 1px solid var(--border-light);
+}
+
+.sidebar.collapsed .sidebar-footer {
+    padding: 10px 0 0;
+}
+
+/* Responsive Hide Sidebar on Mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        /* Hide sidebar completely and use a mobile-specific toggle if needed */
+        width: 0; 
+        overflow: hidden;
+        border-right: none;
+        box-shadow: none;
+        /* Re-introduce a toggle when user clicks a button in the header */
+    }
+    .sidebar.mobile-open { /* Add this class via state/prop when needed */
+        width: var(--sidebar-width-expanded);
+        box-shadow: 2px 0 10px var(--shadow-md);
+    }
+    .collapse-toggle {
+        display: none; /* Hide the internal collapse toggle on mobile */
+    }
+}

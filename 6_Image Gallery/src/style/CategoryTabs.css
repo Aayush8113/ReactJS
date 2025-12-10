@@ -1,0 +1,80 @@
+/* src/style/CategoryTabs.css - IMPROVED FLUID & RESPONSIVE TABS */
+
+/* 1. Container - Enables Horizontal Scroll */
+.category-tabs {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    overflow-x: auto; 
+    overflow-y: hidden;
+    white-space: nowrap; 
+    
+    /* Smooth scrolling behavior for touchpads/mousewheels */
+    scroll-snap-type: x mandatory;
+    scroll-padding: 10px; /* Padding for the snapping effect */
+    
+    /* Hide scrollbar professionally */
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+}
+.category-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+/* 2. Individual Category Button */
+.cat-btn {
+    /* Appearance */
+    background: var(--card);
+    border: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    border-radius: 20px; 
+    
+    /* Layout & Flex */
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0; /* Critical for horizontal scrolling */
+    
+    /* Scrolling Snap Point */
+    scroll-snap-align: start; 
+    
+    /* Interactivity */
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.cat-icon {
+    transition: color 0.2s ease;
+}
+
+.cat-btn:hover {
+    background: var(--hover-bg);
+    border-color: var(--primary);
+    color: var(--text-primary); /* Use primary text color on hover */
+}
+
+/* 3. Active State */
+.cat-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    box-shadow: 0 2px 8px var(--primary-shadow); /* Softer shadow */
+}
+
+.cat-btn.active .cat-icon {
+    color: white; 
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .category-tabs {
+        padding: 5px 0;
+    }
+    .cat-btn {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+}

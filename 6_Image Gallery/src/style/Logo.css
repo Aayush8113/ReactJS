@@ -1,0 +1,47 @@
+/* src/style/Logo.css - PREMIUM TEXT GRADIENT LOGO */
+
+.app-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    
+    /* Layout and Font */
+    font-weight: 800; /* Bolder font */
+    font-size: 1.6rem; /* Slightly larger */
+    letter-spacing: -0.5px;
+}
+
+.logo-icon {
+    /* Use the primary color for the icon */
+    color: var(--primary); 
+    transition: transform 0.2s ease;
+}
+
+.logo-text {
+    /* Unique Branding: Apply a text gradient */
+    background: linear-gradient(90deg, var(--primary), var(--accent, #6c5ce7)); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    transition: all 0.2s ease;
+}
+
+.app-logo:hover .logo-icon {
+    transform: rotate(-10deg) scale(1.1); /* Enhanced hover effect */
+    color: var(--primary-dark);
+}
+
+/* --- Optional Box Style (Enhanced) --- */
+/*
+.app-logo.box-style { 
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: var(--primary);
+    box-shadow: 0 4px 15px var(--primary-shadow);
+}
+.box-style .logo-icon, .box-style .logo-text {
+    color: white;
+}
+*/

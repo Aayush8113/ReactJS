@@ -1,0 +1,277 @@
+/* src/style/Card.css */
+
+/* --- Custom Properties for Card (if not globally defined) --- */
+:root {
+    --card-radius: 12px;
+    --card-shadow-default: 0 4px 12px var(--shadow-sm);
+    --card-shadow-hover: 0 12px 25px var(--shadow);
+    --star-color-filled: #FFC107; /* Amber/Gold for ratings */
+    --star-color-empty: var(--border);
+}
+
+/* 1. Base Card Structure */
+.card {
+    /* Appearance */
+    background: var(--card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow-default);
+    padding: 16px; /* Increased padding */
+    
+    /* Layout & Interactivity */
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    /* Smoother transition for the 3D effect */
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease; 
+}
+
+/* Hover Effect: Better lift and scale */
+.card:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-5px); 
+}
+
+/* 2. Image and Skeleton */
+.card-img-wrapper {
+    position: relative;
+    width: 100%;
+    /* Use aspect ratio for consistent image sizes in a modern grid */
+    aspect-ratio: 4/3; 
+    border-radius: 8px; /* Modern, slightly smaller radius */
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-img {
+    transform: scale(1.03);
+}
+
+.img-skeleton {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Refined skeleton animation colors */
+    background: linear-gradient(90deg, var(--border-light) 25%, var(--background-soft) 50%, var(--border-light) 75%);
+    background-size: 200% 100%;
+    animation: skeleton 1.5s infinite linear;
+}
+
+@keyframes skeleton {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Helper classes for visibility in JSX */
+.card-img.hidden { opacity: 0; }
+.card-img.visible { opacity: 1; transition: opacity 0.5s ease; }
+
+
+/* 3. Category Badge */
+.card-category {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.7rem; /* Slightly smaller */
+    font-weight: 700;
+    color: white; /* Category colors must be dark enough for white text */
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 4. Wishlist Button */
+.wishlist-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white circle */
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.wishlist-btn svg {
+    color: var(--text-secondary); /* Default icon color */
+    transition: fill 0.2s ease, color 0.2s ease;
+}
+
+.wishlist-btn:hover {
+    transform: scale(1.1);
+    background: var(--background);
+}
+
+.wishlist-btn.active svg {
+    /* The fill attribute is controlled in JSX (FiHeart fill) */
+    color: var(--danger); 
+    fill: var(--danger); 
+}
+
+/* 5. Content */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Standardized small gap */
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+    /* Truncate long titles */
+    max-width: 70%; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.price {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+/* 6. Rating */
+.rating {
+    display: flex;
+    gap: 2px;
+    font-size: 1rem;
+    color: var(--star-color-empty);
+}
+
+.rating .star-icon.filled {
+    color: var(--star-color-filled);
+    fill: var(--star-color-filled);
+}
+.rating .star-icon.empty {
+    color: var(--star-color-empty);
+    fill: none;
+}
+
+
+/* 7. Add to Cart Button */
+.add-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 0;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+    background: var(--primary); /* Use primary color for main action */
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.add-btn:hover {
+    background: var(--primary-dark);
+}
+
+.add-btn:active {
+    transform: scale(0.98);
+}
+
+
+/* 8. Modal (Quick View) */
+.modal-overlay { /* Renamed for clarity */
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7); /* Darker backdrop */
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* High Z-index */
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    background: var(--card); /* Modal content background */
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.modal-img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 16px;
+    object-fit: contain; /* Ensure full image is visible */
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--text);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    z-index: 2010;
+    transition: background 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    background: var(--danger);
+}
+
+/* 9. Fly-to-cart clone (Animation Placeholder) */
+.fly-image {
+    position: fixed;
+    object-fit: cover;
+    z-index: 99999;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+@media (max-width: 600px) {
+    .card {
+        padding: 10px;
+    }
+    .card-title {
+        font-size: 1.05rem;
+    }
+    .price {
+        font-size: 1.05rem;
+    }
+    .add-btn {
+        padding: 8px 0;
+    }
+}
